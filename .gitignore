@@ -1,0 +1,26 @@
+# virtual environment
+env/
+
+# pycache
+**/__pycache__/
+
+# pickled matrices
+matrices/*
+
+# pickled linkages
+linkages/*
+
+# images of dendrograms
+dendros/*
+
+# keep empty directories
+!**/.gitkeep
+
+# UD treebanks
+ud/
+
+# change files
+*~
+
+# deleted files
+**/.nfs*
