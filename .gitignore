@@ -24,3 +24,6 @@ ud/
 
 # deleted files
 **/.nfs*
+
+# Mac files
+.DS_Store
