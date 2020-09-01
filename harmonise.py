@@ -7,6 +7,7 @@ from sklearn import svm, tree
 # language to change : ([treebanks to change towards UD format], [treebanks already close to UD format], [relations to change])
 changes = {
 	"Chinese" : (["GSD", "GSDSimp", "PUD"], ["CFL", "HK"], ["clf"]),
+	"Korean" : (["GSD"], ["Kaist", "PUD"], ["aux"]),
 	"Galician" : (["CTG"], ["TreeGal"], ["nummod", "cc"])
 }
 
@@ -57,6 +58,9 @@ def change_corpus(language, corpus, relations):
 	if language == "Chinese":
 		if "clf" in relations:
 			corpus = change_chinese_clf(corpus)
+	elif language == "Korean":
+		if "aux" in relations:
+			corpus = change_korean_aux(corpus)
 	elif language == "Galician":
 		if "nummod" in relations:
 			corpus = change_galician_nummod(corpus)
@@ -104,6 +108,37 @@ def change_chinese_clf(corpus):
 					sentence[modifier[0]].head = noun
 				elif len(modifier) == 0:
 					sentence[classifier].deprel = "det"
+	return corpus
+
+def change_korean_aux(corpus):
+	"""Changes instances of the "aux" relation towards the UD annotations scheme.
+		Only apply this method to: "GSD"!
+		
+		For each instance of "flat":
+			Let its dependent be the auxiliary.
+			Let its head be the main verb.
+			If the UPOS tags for both auxiliary and main verb are "VERB":
+				Change the "flat" relation to "aux".
+				Change the UPOS tag of the auxiliary to "AUX".
+	
+	Args:
+		corpus (`Corpus`): The treebank to change.
+	
+	Returns:
+		`Corpus`: The changed treebank.
+
+	"""
+	for sentence in corpus:
+		for token in sentence:
+			if token.deprel is None:
+				continue
+			dep_label = token.deprel
+			if dep_label == "flat":
+				verb = sentence[token.head]
+				aux = token
+				if verb.upos == "VERB" and aux.upos == "VERB":
+					sentence[aux.id].deprel = "aux"
+					sentence[aux.id].upos = "AUX"
 	return corpus
 
 def change_galician_cc(corpus):
