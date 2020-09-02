@@ -7,7 +7,7 @@ from sklearn import svm, tree
 # language to change : ([treebanks to change towards UD format], [treebanks already close to UD format], [relations to change])
 changes = {
 	"Chinese" : (["GSD", "GSDSimp", "PUD"], ["CFL", "HK"], ["clf"]),
-	"Korean" : (["GSD"], ["Kaist", "PUD"], ["aux"]),
+	"Korean" : (["GSD", "PUD"], ["Kaist"], ["aux"]),
 	"Galician" : (["CTG"], ["TreeGal"], ["nummod", "cc"])
 }
 
@@ -112,7 +112,7 @@ def change_chinese_clf(corpus):
 
 def change_korean_aux(corpus):
 	"""Changes instances of the "aux" relation towards the UD annotations scheme.
-		Only apply this method to: "GSD"!
+		Only apply this method to: "GSD", "PUD"!
 		
 		For each instance of "flat":
 			Let its dependent be the auxiliary.
@@ -120,6 +120,16 @@ def change_korean_aux(corpus):
 			If the UPOS tags for both auxiliary and main verb are "VERB":
 				Change the "flat" relation to "aux".
 				Change the UPOS tag of the auxiliary to "AUX".
+		For each instance of "aux":
+			Let its head be verb1.
+			Let its dependent be verb2.
+			If the UPOS tags for both verbs is "VERB" and verb2 precedes verb1:
+				Change the head of all dependents of verb1 to verb2.
+				Change the head of verb2 to the head of verb1.
+				Change the relation of verb2 to the relation of verb1.
+				Change the head of verb1 to verb2.
+				Change the relation of verb1 to "aux".
+				Change the UPOS tag of verb1 to "AUX".
 	
 	Args:
 		corpus (`Corpus`): The treebank to change.
@@ -133,12 +143,24 @@ def change_korean_aux(corpus):
 			if token.deprel is None:
 				continue
 			dep_label = token.deprel
-			if dep_label == "flat":
+			if dep_label == "flat": # GSD
 				verb = sentence[token.head]
 				aux = token
 				if verb.upos == "VERB" and aux.upos == "VERB":
 					sentence[aux.id].deprel = "aux"
 					sentence[aux.id].upos = "AUX"
+			elif dep_label == "aux": # PUD
+				verb1 = sentence[token.head]
+				verb2 = token
+				if verb1.upos == "VERB" and verb2.upos == "VERB" and int(verb2.id) < int(verb1.id):
+					for tok in sentence:
+						if tok.head == verb1.id:
+							sentence[tok.id].head = verb2.id
+					sentence[verb2.id].head = verb1.head
+					sentence[verb2.id].deprel = verb1.deprel
+					sentence[verb1.id].head = verb2.id
+					sentence[verb1.id].deprel = "aux"
+					sentence[verb1.id].upos = "AUX"
 	return corpus
 
 def change_galician_cc(corpus):
