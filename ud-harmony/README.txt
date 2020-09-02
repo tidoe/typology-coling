@@ -16,8 +16,8 @@ Traditional: HK, GSD, PUD
 KOREAN
 
 changed relations: aux
-treebanks already close to UD format: Kaist, PUD
-treebanks changed towards UD format: GSD
+treebanks already close to UD format: Kaist
+treebanks changed towards UD format: GSD, PUD
 
 
 GALICIAN
