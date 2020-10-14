@@ -298,6 +298,8 @@ def calc_language_vectors(combine_treebanks, treebank_path):
 	arity = {}
 	language_families = get_language_families()
 	for treebank in tqdm.tqdm(os.scandir(treebank_path), total=len(os.listdir(treebank_path))):
+		if not treebank.name.startswith("UD_"):
+			continue
 		language = full_language_name(language_families, treebank.name, combine_treebanks)
 		if language not in counts.keys():
 			counts[language] = {}
