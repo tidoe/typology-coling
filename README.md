@@ -1,4 +1,20 @@
-# Real-Valued Logics for Linguistic Typology
+# Language Vectors and Real-Valued Logics for Linguistic Typology
+
+## Table of contents
+
+- [Set-up](#set-up)
+- [Language Vectors](#language-vectors)
+  - [From scratch](#from-scratch)
+  - [From resources](#from-resources)
+    - [UD treebanks](#ud-treebanks)
+    - [URIEL](#uriel-lang2vec)
+    - [Serva and Petroni (2008)](#serva-and-petroni-2008)
+  - [Example 1](#example-1)
+- [Real-Valued Logics](#real-valued-logics)
+  - [Valuations](#valuations)
+  - [Example 2](#example-2)
+- [COLING](#coling)
+- [License/Citation](#licensecitation)
 
 ## Set-Up
 
@@ -146,9 +162,9 @@ print(valuation.collapse()) # 0.025
 
 For a full example, including phylogenetic weighting, see `example_2.py`.
 
-# COLING
+## COLING
 
-To reproduce the results of the papers published at COLING, set-up the virtual environment and download the UD treebanks as described above. Then run the following commands:
+To reproduce the results of the papers published at COLING (see citation), set-up the virtual environment and download the UD treebanks as described above. Then run the following commands:
 
 ```sh
 # Differences in dependency direction
@@ -163,3 +179,19 @@ python run_greenberg.py 2
 # List of implications
 python run_implications.py
 ```
+
+## License/Citation
+This work is licensed under a
+Creative Commons Attribution 4.0 International License.
+
+If you use this code, you should cite one of the following papers in your work:
+
+> Tillmann Dönicke, Xiang Yu and Jonas Kuhn (2020). "Real-Valued Logics for Typological Universals: Framework and Application". In Proceedings of the 28th International Conference on Computational Linguistics (COLING 2020).
+
+> Tillmann Dönicke, Xiang Yu and Jonas Kuhn (2020). "Identifying and Handling Cross-Treebank Inconsistencies in UD: A Pilot Study". In Proceedings of the Fourth Workshop on Universal Dependencies (UDW 2020).
+
+> Tillmann Dönicke (2020). "Evaluation of Complex Typological Universals with Language Vectors and Real-Valued Logics". Master's thesis, University of Stuttgart.
+
+The language vectors representing conceptual properties are described in:
+
+> Maurizio Serva and Filippo Petroni. "Indo-European languages tree by Levenshtein distance." EPL (Europhysics Letters), 81(6).
