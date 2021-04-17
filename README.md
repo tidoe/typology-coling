@@ -73,7 +73,7 @@ Create language vectors with single-link, double-link and chain-link properties:
 matrixUD, languagesUD, propertiesUD = load_language_vectors("matrices/matrixUD.pickle", name="UD", save_overwrite=True, combine_treebanks=True, treebank_path="ud/ud-treebanks-v2.5/")
 ```
 
-`combine_treebanks=True` produces language vectors by merging all treebanks for the same language; `combine_treebanks=True` produces treebank vectors. `save_overwrite=True` saves the calculated matrix to the specified file and overwrites it if it already exists; `save_overwrite=False` loads the matrix from the specified file if it exists and calculates it otherwise, but does not save it. To load a matrix from a file if it exists and otherwise calculate and save it, you can write `save_overwrite=(not os.path.exists("matrices/matrixUD.pickle"))`.
+`combine_treebanks=True` produces language vectors by merging all treebanks for the same language; `combine_treebanks=False` produces treebank vectors. `save_overwrite=True` saves the calculated matrix to the specified file and overwrites it if it already exists; `save_overwrite=False` loads the matrix from the specified file if it exists and calculates it otherwise, but does not save it. To load a matrix from a file if it exists and otherwise calculate and save it, you can write `save_overwrite=(not os.path.exists("matrices/matrixUD.pickle"))`.
 
 #### URIEL ([lang2vec](https://github.com/antonisa/lang2vec))
 
