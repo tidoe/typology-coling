@@ -30,7 +30,7 @@ prompt-toolkit==2.0.10
 ptyprocess==0.6.0
 pyconll==2.2.0
 pyeda==0.28.0
-Pygments==2.4.2
+Pygments==2.7.4
 pyparsing==2.4.2
 python-dateutil==2.8.0
 python-Levenshtein==0.12.0
