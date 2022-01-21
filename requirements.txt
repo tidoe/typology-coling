@@ -7,7 +7,7 @@ Cython==0.29.14
 decorator==4.4.1
 hdmedians==0.13
 idna==2.8
-ipython==7.9.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 iso-639==0.4.5
 jedi==0.15.1
